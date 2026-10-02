@@ -96,6 +96,8 @@ public class PolicyServiceImpl implements PolicyService {
 	}
 
 	@Override
+	@Cacheable(value = RedisConfig.SEARCH_POLICIES_CACHE,
+			key = "#criteria.toString() + '-' + #pageable.pageNumber + '-' + #pageable.pageSize + '-' + #pageable.sort.toString()")
 	public SearchResponseDTO searchPolicies(PolicySearchCriteria criteria, Pageable pageable) {
 
 		if (!criteria.hasAnyCriteria()) {
